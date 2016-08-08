@@ -9,7 +9,7 @@ module.exports = history
 // fn(str) -> null
 function history (cb) {
   assert.equal(typeof cb, 'function', 'cb must be a function')
-  window.onpopstate = function () {
-    cb(document.location.href)
+  window.onpopstate = function (event) {
+    cb(document.location.href, event.state)
   }
 }
