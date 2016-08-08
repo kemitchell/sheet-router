@@ -7,7 +7,7 @@ module.exports = href
 // and url lives on the same domain. Replaces
 // trailing '#' so empty links work as expected.
 // fn(str) -> null
-function href (cb) {
+function href (cb, state) {
   assert.equal(typeof cb, 'function', 'cb must be a function')
 
   window.onclick = function (e) {
@@ -24,6 +24,6 @@ function href (cb) {
     e.preventDefault()
     const href = node.href.replace(/#$/, '')
     cb(href)
-    window.history.pushState({}, null, href)
+    window.history.pushState(state ? state(node) : {}, null, href)
   }
 }
